@@ -1,8 +1,8 @@
 import sqlite3
 from functools import wraps
-
 from flask import Flask, flash, redirect, render_template, request, \
     session, url_for, g
+from forms import AddTaskForm
 
 # config
 app = Flask(__name__)
@@ -75,7 +75,7 @@ def tasks():
 
 
 # Add new tasks
-@app.route('/add/', method=['POST'])
+@app.route('/add/', methods=['POST'])
 @login_required
 def new_task():
     g.db = connect_db()
