@@ -9,6 +9,7 @@ from flask import Flask, flash, redirect, render_template, request, \
     session, url_for
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+from sqlalchemy.exc import IntegrityError
 
 ##############
 ### config ###
@@ -90,10 +91,14 @@ def register():
                 form.email.data,
                 form.password.data
             )
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Thanks for registering. Please log in.')
-            return redirect(url_for('login'))
+            try:
+                db.session.add(new_user)
+                db.session.commit()
+                flash('Thanks for registering. Please log in.')
+                return redirect(url_for('login'))
+            except IntegrityError:
+                error = 'That username and/or email already exists.'
+                return render_template('register.html', form=form, error=error)
     return render_template('register.html', form=form, error=error)
 
 
