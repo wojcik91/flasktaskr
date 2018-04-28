@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+itsdangerous = "==0.24"
+paramiko = "==2.0.2"
+"pyasn1" = "==0.1.9"
+pycparser = "==2.14"
+six = "==1.10.0"
+Flask = "==0.11.1"
+Flask-SQLAlchemy = "==2.1"
+Flask-WTF = "==0.12"
+"Jinja2" = "==2.10"
+MarkupSafe = "==1.0"
+SQLAlchemy = "==1.2.3"
+Werkzeug = "==0.14.1"
+WTForms = "==2.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
