@@ -46,6 +46,20 @@ class AllTests(unittest.TestCase):
     def logout(self):
         return self.app.get('logout/', follow_redirects=True)
 
+    def create_user(self, name, email, password):
+        new_user = User(name=name, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+
+    def create_task(self):
+        return self.app.post('add/', data = dict(
+            name='Go to the bank',
+            due_date='2018-09-02',
+            priority='1',
+            posted_date='2018-05-19',
+            status='1'
+        ), follow_redirects=True)
+
     #############
     ### tests ###
     #############
@@ -117,8 +131,6 @@ class AllTests(unittest.TestCase):
     def test_not_logged_in_users_cannot_access_tasks_page(self):
         response = self.app.get('tasks/', follow_redirects=True)
         self.assertIn(b'You need to log in first.', response.data)
-
-    
 
 
 if __name__ == '__main__':
