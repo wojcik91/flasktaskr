@@ -152,6 +152,16 @@ class AllTests(unittest.TestCase):
         ), follow_redirects=True)
         self.assertIn(b'This field is required.', response.data)
 
+    def test_users_can_complete_tasks(self):
+        self.create_user('Michael', 'michael@realpython.com', 'python')
+        self.login('Michael', 'python')
+        self.app.get('tasks/', follow_redirects=True)
+        self.create_task()
+        response = self.app.get('complete/1/', follow_redirects=True)
+        self.assertIn(b'The task is complete.', response.data)
+
+    
+
 
 if __name__ == '__main__':
     unittest.main()
