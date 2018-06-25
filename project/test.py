@@ -139,6 +139,18 @@ class AllTests(unittest.TestCase):
         response = self.create_task()
         self.assertIn(b'New entry was successfully posted.', response.data)
 
+    def test_users_cannot_add_tasks_when_error(self):
+        self.create_user('Michael', 'michael@realpython.com', 'python')
+        self.login('Michael', 'python')
+        self.app.get('tasks/', follow_redirects=True)
+        response = self.app.post('add/', data=dict(
+            name='Go to the bank',
+            due_date='',
+            priority='1',
+            posted_date='2018-06-06',
+            status='1'
+        ), follow_redirects=True)
+        self.assertIn(b'This field is required.', response.data)
 
 
 if __name__ == '__main__':
