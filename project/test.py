@@ -132,6 +132,14 @@ class AllTests(unittest.TestCase):
         response = self.app.get('tasks/', follow_redirects=True)
         self.assertIn(b'You need to log in first.', response.data)
 
+    def test_users_can_add_tasks(self):
+        self.create_user('Michael', 'michael@realpython.com', 'python')
+        self.login('Michael', 'python')
+        self.app.get('tasks/', follow_redirects=True)
+        response = self.create_task()
+        self.assertIn(b'New entry was successfully posted.', response.data)
+
+
 
 if __name__ == '__main__':
     unittest.main()
