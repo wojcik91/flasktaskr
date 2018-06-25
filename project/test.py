@@ -158,7 +158,7 @@ class AllTests(unittest.TestCase):
         self.app.get('tasks/', follow_redirects=True)
         self.create_task()
         response = self.app.get('complete/1/', follow_redirects=True)
-        self.assertIn(b'The task is complete.', response.data)
+        self.assertIn(b'The task was marked as complete.', response.data)
 
     
 
