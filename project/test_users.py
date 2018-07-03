@@ -11,7 +11,7 @@ TEST_DB = 'test.db'
 class AllTests(unittest.TestCase):
 
     ##########################
-    ### setup and teardown ###
+    #   setup and teardown   #
     ##########################
 
     # executed prior to each test
@@ -29,7 +29,7 @@ class AllTests(unittest.TestCase):
         db.drop_all()
 
     ######################
-    ### helper methods ###
+    #   helper methods   #
     ######################
     def login(self, name, password):
         return self.app.post('/', data=dict(name=name, password=password),
@@ -52,7 +52,7 @@ class AllTests(unittest.TestCase):
         db.session.commit()
 
     def create_task(self):
-        return self.app.post('add/', data = dict(
+        return self.app.post('add/', data=dict(
             name='Go to the bank',
             due_date='2018-09-02',
             priority='1',
@@ -61,7 +61,7 @@ class AllTests(unittest.TestCase):
         ), follow_redirects=True)
 
     #############
-    ### tests ###
+    #   tests   #
     #############
 
     def test_user_can_register(self):
@@ -76,7 +76,10 @@ class AllTests(unittest.TestCase):
     def test_form_is_present_on_login_page(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Please sign in to access your task list', response.data)
+        self.assertIn(
+            b'Please sign in to access your task list',
+            response.data
+            )
 
     def test_users_cannot_log_in_unless_registered(self):
         response = self.login('foo', 'bar')
@@ -118,7 +121,8 @@ class AllTests(unittest.TestCase):
         )
 
     def test_logged_in_users_can_logout(self):
-        self.register('Fletcher', 'fletcher@realpython.com', 'python101', 'python101')
+        self.register('Fletcher', 'fletcher@realpython.com',
+                      'python101', 'python101')
         self.login('Fletcher', 'python101')
         response = self.logout()
         self.assertIn(b'Goodbye!', response.data)

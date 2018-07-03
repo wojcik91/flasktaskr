@@ -1,5 +1,5 @@
 ###############
-### imports ###
+#   imports   #
 ###############
 
 from forms import AddTaskForm, RegisterForm, LoginForm
@@ -12,7 +12,7 @@ import datetime
 from sqlalchemy.exc import IntegrityError
 
 ##############
-### config ###
+#   config   #
 ##############
 
 app = Flask(__name__)

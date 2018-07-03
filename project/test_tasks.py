@@ -11,7 +11,7 @@ TEST_DB = 'test.db'
 class AllTests(unittest.TestCase):
 
     ##########################
-    ### setup and teardown ###
+    #   setup and teardown   #
     ##########################
 
     # executed prior to each test
@@ -29,7 +29,7 @@ class AllTests(unittest.TestCase):
         db.drop_all()
 
     ######################
-    ### helper methods ###
+    #   helper methods   #
     ######################
     def login(self, name, password):
         return self.app.post('/', data=dict(name=name, password=password),
@@ -52,7 +52,7 @@ class AllTests(unittest.TestCase):
         db.session.commit()
 
     def create_task(self):
-        return self.app.post('add/', data = dict(
+        return self.app.post('add/', data=dict(
             name='Go to the bank',
             due_date='2018-09-02',
             priority='1',
@@ -61,11 +61,12 @@ class AllTests(unittest.TestCase):
         ), follow_redirects=True)
 
     #############
-    ### tests ###
+    #   tests   #
     #############
 
     def test_logged_in_users_can_access_tasks_page(self):
-        self.register('Fletcher', 'fletcher@realpython.com', 'python101', 'python101')
+        self.register('Fletcher', 'fletcher@realpython.com',
+                      'python101', 'python101')
         self.login('Fletcher', 'python101')
         response = self.app.get('tasks/')
         self.assertEqual(response.status_code, 200)
