@@ -74,7 +74,7 @@ class AllTests(unittest.TestCase):
             t.name
         assert t.name == 'michael'
 
-    def test_form_is_present(self):
+    def test_form_is_present_on_login_page(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Please log in to access your task list', response.data)
@@ -100,6 +100,13 @@ class AllTests(unittest.TestCase):
                       response.data)
 
     def test_user_registration(self):
+        self.app.get('register/', follow_redirects=True)
+        response = self.register(
+            'Michael', 'michael@realpython.pl', 'python', 'python'
+        )
+        self.assertIn(b'Thanks for registering.', response.data)
+
+    def test_user_registration_error(self):
         self.app.get('register/', follow_redirects=True)
         self.register('Michael', 'michael@realpython.pl', 'python', 'python')
         self.app.get('register/', follow_redirects=True)
