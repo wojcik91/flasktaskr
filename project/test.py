@@ -160,7 +160,13 @@ class AllTests(unittest.TestCase):
         response = self.app.get('complete/1/', follow_redirects=True)
         self.assertIn(b'The task was marked as complete.', response.data)
 
-    
+    def test_users_can_delete_tasks(self):
+        self.create_user('Michael', 'michael@realpython.com', 'python')
+        self.login('Michael', 'python')
+        self.app.get('tasks/', follow_redirects=True)
+        self.create_task()
+        response = self.app.get('delete/1/', follow_redirects=True)
+        self.assertIn(b'The task was deleted.', response.data)
 
 
 if __name__ == '__main__':
