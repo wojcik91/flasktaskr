@@ -25,7 +25,7 @@ class AddTaskForm(Form):
 class RegisterForm(Form):
     name = StringField(
         'Username',
-        validators=[DataRequired(), Length(min=6, max=25)]
+        validators=[DataRequired(), Length(min=5, max=25)]
     )
     email = StringField(
         'Email',
