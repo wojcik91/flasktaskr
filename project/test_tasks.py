@@ -115,6 +115,8 @@ class AllTests(unittest.TestCase):
         self.app.get('tasks/', follow_redirects=True)
         response = self.app.get('complete/1/', follow_redirects=True)
         self.assertNotIn(b'The task was marked as complete.', response.data)
+        self.assertIn(b'You can only update tasks that belong to you',
+                      response.data)
 
 
 if __name__ == '__main__':
