@@ -61,7 +61,6 @@ class AllTests(unittest.TestCase):
         db.session.add(new_user)
         db.session.commit()
 
-
     def create_task(self):
         return self.app.post('add/', data=dict(
             name='Go to the bank',
@@ -139,7 +138,7 @@ class AllTests(unittest.TestCase):
         response = self.app.get('delete/1/', follow_redirects=True)
         self.assertIn(b'You can only delete tasks that belong to you',
                       response.data)
-    
+
     def test_admin_users_can_complete_tasks_that_are_not_created_by_them(self):
         self.create_user('Michael', 'michael@realpython.org', 'python')
         self.login('Michael', 'python')
