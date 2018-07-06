@@ -131,6 +131,16 @@ class AllTests(unittest.TestCase):
         response = self.logout()
         self.assertNotIn(b'Goodbye!', response.data)
 
+    def test_duplicate_user_registeration_throws_error(self):
+        self.register('Fletcher', 'fletcher@realpython.com',
+                      'python101', 'python101')
+        response = self.register('Fletcher', 'fletcher@realpython.com',
+                                 'python101', 'python101')
+        self.assertIn(
+            b'That username and/or email already exists.',
+            response.data
+        )
+
     def test_default_user_role(self):
         db.session.add(
             User(
