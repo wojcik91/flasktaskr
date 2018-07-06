@@ -1,9 +1,9 @@
 import os
 import unittest
 
-from views import app, db
-from _config import basedir
-from models import User
+from project import app, db
+from project._config import basedir
+from project.models import User
 
 TEST_DB = 'test.db'
 
@@ -116,7 +116,7 @@ class AllTests(unittest.TestCase):
             'Michael', 'michael@realpython.pl', 'python', 'python'
         )
         self.assertIn(
-            b'That username and/or email already exists.',
+            b'That username and/or email already exist.',
             response.data
         )
 
@@ -137,7 +137,7 @@ class AllTests(unittest.TestCase):
         response = self.register('Fletcher', 'fletcher@realpython.com',
                                  'python101', 'python101')
         self.assertIn(
-            b'That username and/or email already exists.',
+            b'That username and/or email already exist.',
             response.data
         )
 

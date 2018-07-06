@@ -1,9 +1,9 @@
 import os
 import unittest
 
-from views import app, db
-from _config import basedir
-from models import User
+from project import app, db
+from project._config import basedir
+from project.models import User
 
 TEST_DB = 'test.db'
 
@@ -86,7 +86,7 @@ class AllTests(unittest.TestCase):
 
     def test_not_logged_in_users_cannot_access_tasks_page(self):
         response = self.app.get('tasks/', follow_redirects=True)
-        self.assertIn(b'You need to log in first.', response.data)
+        self.assertIn(b'You need to login first.', response.data)
 
     def test_users_can_add_tasks(self):
         self.open_tasks_page_as_user()
@@ -108,7 +108,7 @@ class AllTests(unittest.TestCase):
         self.open_tasks_page_as_user()
         self.create_task()
         response = self.app.get('complete/1/', follow_redirects=True)
-        self.assertIn(b'The task was marked as complete.', response.data)
+        self.assertIn(b'The task is complete.', response.data)
 
     def test_users_can_delete_tasks(self):
         self.open_tasks_page_as_user()
