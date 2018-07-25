@@ -13,5 +13,5 @@
     "python.unitTest.promptToConfigure": false,
     "python.unitTest.pyTestEnabled": false,
     "python.unitTest.nosetestsEnabled": false,
-    "python.pythonPath": "C:\\Users\\Mwojcik4\\.virtualenvs\\flasktaskr-9IiPodZV\\Scripts\\python.exe",
+    "python.pythonPath": "/home/maciek/.virtualenvs/flasktaskr-gRgYS7Mq/bin/python",
 }
