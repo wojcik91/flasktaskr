@@ -24,6 +24,7 @@ flask-bcrypt = "*"
 [dev-packages]
 pylint = "*"
 "flake8" = "*"
+nose = "*"
 
 [requires]
 python_version = "3.6"
