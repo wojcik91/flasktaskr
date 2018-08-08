@@ -18,10 +18,13 @@ class MainTests(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
+        app.config['DEBUG'] = False
         app.config['SQALCHEMY_DATABASE_URI'] = 'sqlite:///' +\
             os.path.join(basedir, TEST_DB)
         self.app = app.test_client()
         db.create_all()
+
+        self.assertEquals(app.debug, False)
 
     # executed after each test
     def tearDown(self):
@@ -51,11 +54,13 @@ class MainTests(unittest.TestCase):
         )
         db.session.add(bad_user)
         db.session.commit()
-        response = self.login('Jeremy', 'django')
-        self.assertEquals(response.status_code, 500)
-        self.assertNotIn(b'Invalid salt', response.data)
-        self.assertIn(b'Something went terribly wrong', response.data)
+        self.assertRaises(ValueError, self.login, 'Jeremy', 'django')
+        try:
+            response = self.login('Jeremy', 'django')
+            self.assertEquals(response.status_code, 500)
+        except ValueError:
+            pass
 
-   
+
 if __name__ == '__main__':
     unittest.main()
